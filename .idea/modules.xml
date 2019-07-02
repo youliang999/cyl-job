@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cyl-job.iml" filepath="$PROJECT_DIR$/cyl-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cyl-job-admin/cyl-job-admin.iml" filepath="$PROJECT_DIR$/cyl-job-admin/cyl-job-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cyl-job-core/cyl-job-core.iml" filepath="$PROJECT_DIR$/cyl-job-core/cyl-job-core.iml" />
+    </modules>
+  </component>
+</project>
