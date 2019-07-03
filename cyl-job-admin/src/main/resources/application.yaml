@@ -1,2 +1,7 @@
 trigger:
   timeout: 500
+cyl:
+  job:
+    accessToken:
+  mail:
+    username:
