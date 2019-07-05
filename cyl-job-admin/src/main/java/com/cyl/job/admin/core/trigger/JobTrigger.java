@@ -19,11 +19,7 @@ public class JobTrigger {
     private static Logger log = LoggerFactory.getLogger(JobTrigger.class);
 
     public static void trigger(int jobId, TriggerTypeEnum triggerTypeEnum, int failRetryCount, String executorParam) {
-        Optional<CylJobInfo> jobInfoOpt = CylJobAdminConfig.getInstance().getCylJobInfoDao().findById(jobId);
-        CylJobInfo cylJobInfo = null;
-        if(jobInfoOpt.isPresent()) {
-            cylJobInfo = jobInfoOpt.get();
-        }
+        CylJobInfo cylJobInfo = CylJobAdminConfig.getInstance().getCylJobInfoDao().loadById(jobId);
         if(cylJobInfo == null) {
             log.warn("[WARN]>>>>>> trigger fail, jobInfo invalid, jobId:{}", jobId);
         }
@@ -31,11 +27,7 @@ public class JobTrigger {
             cylJobInfo.setExecutorParam(executorParam);
         }
         final int finalFailRetryCount = failRetryCount > 0 ? failRetryCount : cylJobInfo.getExecutorFailRetryCount();
-        Optional<CylJobGroup> groupOpt = CylJobAdminConfig.getInstance().getCylJobGroupDao().findById(cylJobInfo.getJobGroup());
-        CylJobGroup cylJobGroup = null;
-        if (groupOpt.isPresent()) {
-            cylJobGroup = groupOpt.get();
-        }
+        CylJobGroup cylJobGroup = CylJobAdminConfig.getInstance().getCylJobGroupDao().load(cylJobInfo.getJobGroup());
         if (ExecutorRouteStrategyEnum.SHARDING_BROADCAST == ExecutorRouteStrategyEnum
                 .match(cylJobInfo.getExecutorBlockStrategy(), null) && cylJobGroup.getRegistryList() != null
                 && !cylJobGroup.getRegistryList().isEmpty()) {
@@ -92,7 +84,26 @@ public class JobTrigger {
         } else {
             routeAddressResult = new ResponseModel<>(ResponseModel.FAIL_CODE, "调度失败：执行器地址为空");
         }
-        //初始化执行器
+        //触发执行器
+        ResponseModel<String> triggerResult = null;
+        if(address != null) {
+//todo            triggerResult = 
+        } else {
+            triggerResult = new ResponseModel<>(ResponseModel.FAIL_CODE, "执行器地址为空!");
+        }
+    }
 
+    public static ResponseModel<String> runExecutor(TriggerParam triggerParam, String address) {
+        ResponseModel<String> runResult = null;
+        //执行任务
+
+        //保存执行记录结果
+        StringBuffer resultBf = new StringBuffer("触发调度");
+        resultBf.append("<br>address:").append(address);
+        resultBf.append("<br>code:").append(runResult.getCode());
+        resultBf.append("<br>msg:").append(runResult.getMsg());
+
+        runResult.setMsg(resultBf.toString());
+        return runResult;
     }
 }
