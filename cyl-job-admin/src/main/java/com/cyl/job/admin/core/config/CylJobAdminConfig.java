@@ -1,11 +1,13 @@
 package com.cyl.job.admin.core.config;
 
-import com.cyl.job.admin.dao.CylJobGroupDao;
-import com.cyl.job.admin.dao.CylJobInfoDao;
-import com.cyl.job.admin.dao.CylJobLogDao;
-import com.cyl.job.admin.dao.CylJobRegistryDao;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
+import com.cyl.api.dao.CylJobGroupDao;
+import com.cyl.api.dao.CylJobInfoDao;
+import com.cyl.api.dao.CylJobLogDao;
+import com.cyl.api.dao.CylJobRegistryDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

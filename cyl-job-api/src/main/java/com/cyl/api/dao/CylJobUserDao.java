@@ -1,9 +1,10 @@
-package com.cyl.job.admin.dao;
+package com.cyl.api.dao;
 
-import com.cyl.job.admin.core.model.CylJobUser;
-import java.util.List;
+import com.cyl.api.model.CylJobUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author xuxueli 2019-05-04 16:44:59
@@ -12,13 +13,13 @@ import org.apache.ibatis.annotations.Param;
 public interface CylJobUserDao {
 
 	public List<CylJobUser> pageList(@Param("offset") int offset,
-            @Param("pagesize") int pagesize,
-            @Param("username") String username,
-            @Param("role") int role);
+									 @Param("pagesize") int pagesize,
+									 @Param("username") String username,
+									 @Param("role") int role);
 	public int pageListCount(@Param("offset") int offset,
-            @Param("pagesize") int pagesize,
-            @Param("username") String username,
-            @Param("role") int role);
+                             @Param("pagesize") int pagesize,
+                             @Param("username") String username,
+                             @Param("role") int role);
 
 	public CylJobUser loadByUserName(@Param("username") String username);
 

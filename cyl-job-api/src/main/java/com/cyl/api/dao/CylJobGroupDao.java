@@ -1,9 +1,10 @@
-package com.cyl.job.admin.dao;
+package com.cyl.api.dao;
 
-import com.cyl.job.admin.core.model.CylJobGroup;
-import java.util.List;
+import com.cyl.api.model.CylJobGroup;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by xuxueli on 16/9/30.

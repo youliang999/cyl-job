@@ -1,4 +1,4 @@
-package com.cyl.job.admin.core.model;
+package com.cyl.api.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.cyl.job.admin.core.model;
+package com.cyl.api.model;
  
 public class CylJobLogGlue {
 	

@@ -3,8 +3,7 @@ package com.cyl.job.admin.core.helper;
 import com.cyl.job.admin.core.config.CylJobAdminConfig;
 import com.cyl.job.admin.core.config.RegistryConfig;
 import com.cyl.job.admin.core.config.RegistryConfig.RegistType;
-import com.cyl.job.admin.core.model.CylJobGroup;
-import com.cyl.job.admin.core.model.CylJobRegistry;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -104,5 +103,16 @@ public class JobRegistryMonitorHelper {
         Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
         Date timeout = Date.from(instant);
         return timeout;
+    }
+
+    public void toStop() {
+        toStop = true;
+        //interrupt and wait
+        registryThread.interrupt();
+        try {
+            registryThread.join();
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 }

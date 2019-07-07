@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cyl-job-admin" />
+        <module name="cyl-job-api" />
         <module name="cyl-job-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cyl-job" target="1.8" />
       <module name="cyl-job-admin" target="1.8" />
+      <module name="cyl-job-api" target="1.7" />
       <module name="cyl-job-core" target="1.7" />
     </bytecodeTargetLevel>
   </component>

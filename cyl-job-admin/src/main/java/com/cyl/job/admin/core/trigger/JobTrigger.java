@@ -1,17 +1,20 @@
 package com.cyl.job.admin.core.trigger;
 
 
+import com.cyl.api.model.CylJobGroup;
+import com.cyl.api.model.CylJobInfo;
+import com.cyl.api.model.CylJobLog;
 import com.cyl.job.admin.core.config.CylJobAdminConfig;
-import com.cyl.job.admin.core.model.CylJobGroup;
-import com.cyl.job.admin.core.model.CylJobInfo;
-import com.cyl.job.admin.core.model.CylJobLog;
+import com.cyl.job.admin.core.config.CylJobSchedule;
 import com.cyl.job.admin.enums.ExecutorBlockStrategyEnum;
 import com.cyl.job.admin.enums.ExecutorRouteStrategyEnum;
 import com.cyl.job.admin.enums.TriggerTypeEnum;
 import com.cyl.job.core.biz.model.ResponseModel;
 import com.cyl.job.core.biz.model.TriggerParam;
 import java.util.Date;
-import java.util.Optional;
+
+import com.cyl.job.core.service.ExecutorBiz;
+import com.cyl.job.core.util.ThrowableUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,7 +99,13 @@ public class JobTrigger {
     public static ResponseModel<String> runExecutor(TriggerParam triggerParam, String address) {
         ResponseModel<String> runResult = null;
         //执行任务
-
+        try {
+            ExecutorBiz executorBiz = CylJobSchedule.getExecutorBiz(address);
+            runResult = executorBiz.run(triggerParam);
+        } catch (Exception e) {
+            log.error(">>>>>> cyl-job trigger error, please check if the executor[{}] is running.", address, e);
+            runResult = new ResponseModel<>(ResponseModel.FAIL_CODE, ThrowableUtil.toString(e));
+        }
         //保存执行记录结果
         StringBuffer resultBf = new StringBuffer("触发调度");
         resultBf.append("<br>address:").append(address);

@@ -1,12 +1,9 @@
 package com.cyl.job.admin.core.helper;
 
 import com.cyl.job.admin.core.config.CylJobAdminConfig;
-import com.cyl.job.admin.core.model.CylJobGroup;
-import com.cyl.job.admin.core.model.CylJobInfo;
-import com.cyl.job.admin.core.model.CylJobLog;
 import com.cyl.job.admin.enums.TriggerTypeEnum;
 import com.cyl.job.core.biz.model.ResponseModel;
-import com.sun.xml.internal.org.jvnet.mimepull.MIMEMessage;
+
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -138,6 +135,16 @@ public class JobFailMonitorHelper {
             }
         }
         return alarmResult;
+    }
+
+    public void toStop() {
+        toStop = true;
+        monitorThread.interrupt();
+        try {
+            monitorThread.join();
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        }
     }
 
 

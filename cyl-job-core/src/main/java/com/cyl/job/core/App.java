@@ -1,4 +1,4 @@
-package com.cyl;
+package com.cyl.job.core;
 
 /**
  * Hello world!

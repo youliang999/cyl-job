@@ -2,7 +2,6 @@ package com.cyl.job.admin.core.helper;
 
 import com.cyl.job.admin.core.config.CylJobAdminConfig;
 import com.cyl.job.admin.core.cron.CronExpression;
-import com.cyl.job.admin.core.model.CylJobInfo;
 import com.cyl.job.admin.enums.TriggerTypeEnum;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -195,16 +194,35 @@ public class JobScheduleHelper {
                         //ring trigger
                         logger.info(">>>>>> cyl-job, time-ring beat: " + nowSecond + "=" + Arrays.asList(ringItemData));
                         if (ringItemData != null && ringItemData.size() > 0) {
-
+                            //do trigger
+                            for (int jobId : ringItemData) {
+                                //trigger
+                                JobTriggerPoolHelper.trigger(jobId, TriggerTypeEnum.CRON, -1, null);
+                            }
+                            //clear
+                            ringItemData.clear();
                         }
                     } catch (Exception e) {
+                        if (!ringThreadToStop) {
+                            logger.error(">>>>>> cyl-job, JobScheduleHelper#ringThread error:{}", e.getMessage(), e);
+                        }
+                    }
+
+                    //next second, align second
+                    try {
+                        TimeUnit.MICROSECONDS.sleep(1000 - System.currentTimeMillis() % 1000);
+                    } catch (InterruptedException e) {
                         if (!ringThreadToStop) {
                             logger.error(e.getMessage(), e);
                         }
                     }
                 }
+                logger.info(">>>>>> cyl-job,  jobScheduleHelper#ringThread stop");
             }
         });
+        ringThread.setDaemon(true);
+        ringThread.setName("cyl-job, admin jobScheduleHelper#ringThread");
+        ringThread.start();
     }
 
     private void pushTimeRing(int ringSecond, int jobId) {
@@ -216,5 +234,62 @@ public class JobScheduleHelper {
         }
         ringItemData.add(jobId);
         logger.info(">>>>>> cyl-job, schedule push time-ring:" + ringSecond + "=" + Arrays.asList(ringItemData));
+    }
+
+    public void toStop() {
+        logger.info(">>>>>> cyl-job, jobScheduleHelper 开始停止...");
+        //1. stop schedule
+        scheduleThreadToStop = true;
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        }
+        if (scheduleThread.getState() != Thread.State.TERMINATED) {
+            //interrupt and wait
+            scheduleThread.interrupt();
+            try {
+                scheduleThread.join();
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+        //if has ring data
+        boolean hasRingData = false;
+        if (!ringData.isEmpty()) {
+            for (int second : ringData.keySet()) {
+                List<Integer> tmpData = ringData.get(second);
+                if (tmpData != null && tmpData.size() > 0) {
+                    hasRingData = true;
+                    break;
+                }
+            }
+        }
+
+        if (hasRingData) {
+            try {
+                TimeUnit.SECONDS.sleep(8);
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+
+        //stop ring (wait job-in-memory stop)
+        ringThreadToStop = true;
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
+        }
+        if (ringThread.getState() != Thread.State.TERMINATED) {
+            //interrupt and wait
+            ringThread.interrupt();
+            try {
+                ringThread.join();
+            } catch (InterruptedException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+        logger.info(">>>>>> cyl-job, jobScheduleHelper stop.");
     }
 }

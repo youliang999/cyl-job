@@ -6,7 +6,8 @@
 	<modules>
 		<module>cyl-job-admin</module>
 		<module>cyl-job-core</module>
-	</modules>
+        <module>cyl-job-api</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
