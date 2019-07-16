@@ -1,8 +1,8 @@
 package com.cyl.job.core.service;
 
-import com.cyl.job.core.biz.model.LogResult;
-import com.cyl.job.core.biz.model.ResponseModel;
-import com.cyl.job.core.biz.model.TriggerParam;
+import com.cyl.api.model.LogResult;
+import com.cyl.api.model.ResponseModel;
+import com.cyl.api.model.TriggerParam;
 
 public interface ExecutorBiz {
 

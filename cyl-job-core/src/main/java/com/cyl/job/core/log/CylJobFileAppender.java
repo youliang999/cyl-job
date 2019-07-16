@@ -1,13 +1,12 @@
 package com.cyl.job.core.log;
 
-import com.cyl.job.core.biz.model.LogResult;
+import com.cyl.api.model.LogResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 public class CylJobFileAppender {
     private static Logger logger = LoggerFactory.getLogger(CylJobFileAppender.class);

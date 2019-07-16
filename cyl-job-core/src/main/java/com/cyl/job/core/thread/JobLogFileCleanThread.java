@@ -2,7 +2,7 @@ package com.cyl.job.core.thread;
 
 
 import com.cyl.job.core.log.CylJobFileAppender;
-import com.cyl.job.core.util.FileUtil;
+import com.cyl.api.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

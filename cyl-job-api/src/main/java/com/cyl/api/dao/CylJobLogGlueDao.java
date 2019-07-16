@@ -1,6 +1,6 @@
 package com.cyl.api.dao;
 
-import com.cyl.job.admin.core.model.CylJobLogGlue;
+import com.cyl.api.model.CylJobLogGlue;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,6 +1,6 @@
 package com.cyl.job.core.log;
 
-import com.cyl.job.core.util.DateUtil;
+import com.cyl.api.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
@@ -8,8 +8,6 @@ import org.slf4j.helpers.MessageFormatter;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.DateFormat;
-import java.text.MessageFormat;
 import java.util.Date;
 
 public class CylJobLogger {

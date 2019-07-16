@@ -6,11 +6,12 @@ import com.cyl.job.core.serializer.HessianSerializer;
 import com.cyl.job.core.service.AdminBiz;
 import com.cyl.job.core.log.CylJobFileAppender;
 import com.cyl.job.core.service.impl.AdminBizImpl;
+import com.cyl.job.core.thread.ExecutorRegistryThread;
 import com.cyl.job.core.thread.JobLogFileCleanThread;
 import com.cyl.job.core.thread.JobThread;
 import com.cyl.job.core.thread.TriggerCallbackThread;
-import com.cyl.job.core.util.IpUtil;
-import org.apache.shiro.io.Serializer;
+import com.cyl.api.util.IpUtil;
+import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,11 @@ public class CylJobExecutor {
 
     //-----------------start + stop ------------------------
     public void start() {
+        logger.info("========================");
+        logger.info("========================");
+        logger.info("=====executor start=====");
+        logger.info("========================");
+        logger.info("========================");
         //init logpath
         CylJobFileAppender.initLogPath(logPath);
 
@@ -46,12 +52,22 @@ public class CylJobExecutor {
         TriggerCallbackThread.getInstance().start();
 
         //init executor-server
+
         port = port > 0 ? port : NetUtils.getAvailablePort(9999);
         ip = (ip != null && ip.trim().length() > 0) ? ip : IpUtil.getIp();
-
+//        String address = IpUtil.getIpPort(ip, port);
+//        logger.info("register appName:{}, address:{}", appName, address);
+//        ExecutorRegistryThread.getInstance().start(appName, address);
+        logger.info("CylJobExecutor启动成功......");
     }
+    
 
-    public void destory() {
+    public void destroy() {
+        logger.info("=========================");
+        logger.info("=========================");
+        logger.info("=====executor destroy=====");
+        logger.info("=========================");
+        logger.info("=========================");
         // destory jobThreadRepository
         if (jobThreadRepository.size() > 0) {
             for (Map.Entry<Integer, JobThread> item : jobThreadRepository.entrySet()) {

@@ -1,8 +1,8 @@
 package com.cyl.job.core.service;
 
-import com.cyl.job.core.biz.model.HandleCallbackParam;
-import com.cyl.job.core.biz.model.RegistryParam;
-import com.cyl.job.core.biz.model.ResponseModel;
+import com.cyl.api.model.HandleCallbackParam;
+import com.cyl.api.model.RegistryParam;
+import com.cyl.api.model.ResponseModel;
 
 import java.util.List;
 

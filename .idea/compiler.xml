@@ -14,13 +14,14 @@
     <bytecodeTargetLevel>
       <module name="cyl-job" target="1.8" />
       <module name="cyl-job-admin" target="1.8" />
-      <module name="cyl-job-api" target="1.7" />
-      <module name="cyl-job-core" target="1.7" />
+      <module name="cyl-job-api" target="1.8" />
+      <module name="cyl-job-core" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cyl-job-admin" options="-parameters" />
+      <module name="cyl-job-api" options="-parameters" />
       <module name="cyl-job-core" options="-parameters" />
     </option>
   </component>

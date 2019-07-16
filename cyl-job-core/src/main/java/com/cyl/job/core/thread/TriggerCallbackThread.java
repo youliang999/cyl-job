@@ -1,13 +1,14 @@
 package com.cyl.job.core.thread;
 
-import com.cyl.job.core.biz.model.HandleCallbackParam;
-import com.cyl.job.core.biz.model.ResponseModel;
+import com.cyl.api.model.HandleCallbackParam;
+import com.cyl.api.model.ResponseModel;
 import com.cyl.job.core.config.RegistryConfig;
 import com.cyl.job.core.executor.CylJobExecutor;
 import com.cyl.job.core.log.CylJobFileAppender;
 import com.cyl.job.core.log.CylJobLogger;
 import com.cyl.job.core.service.AdminBiz;
-import com.cyl.job.core.util.FileUtil;
+import com.cyl.api.util.FileUtil;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,7 @@ public class TriggerCallbackThread {
     private LinkedBlockingQueue<HandleCallbackParam> callbackQueue = new LinkedBlockingQueue<>();
 
     public static void pushCallBack(HandleCallbackParam callback) {
+        logger.info("callback {}", new Gson().toJson(callback));
         getInstance().callbackQueue.add(callback);
         logger.info(">>>>>> cyl-job, push callback request, logId:{}", callback.getLogId());
     }

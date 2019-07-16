@@ -1,6 +1,6 @@
 package com.cyl.job.core.handler;
 
-import com.cyl.job.core.biz.model.ResponseModel;
+import com.cyl.api.model.ResponseModel;
 
 public abstract class IJobHandler {
 

@@ -1,13 +1,13 @@
 package com.cyl.job.core.thread;
 
-import com.cyl.job.core.biz.model.HandleCallbackParam;
-import com.cyl.job.core.biz.model.ResponseModel;
-import com.cyl.job.core.biz.model.TriggerParam;
+import com.cyl.api.model.HandleCallbackParam;
+import com.cyl.api.model.ResponseModel;
+import com.cyl.api.model.TriggerParam;
 import com.cyl.job.core.executor.CylJobExecutor;
 import com.cyl.job.core.handler.IJobHandler;
 import com.cyl.job.core.log.CylJobFileAppender;
 import com.cyl.job.core.log.CylJobLogger;
-import com.cyl.job.core.util.ShardingUtil;
+import com.cyl.api.util.ShardingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ public class JobThread extends Thread {
     private int idleTimes = 0;      // idle times
 
     public JobThread(int jobId, IJobHandler jobHandler) {
-        jobId = jobId;
+        this.jobId = jobId;
         this.jobHandler = jobHandler;
         this.triggerQueue = new LinkedBlockingQueue<>();
         this.triggerLogIdSet = Collections.synchronizedSet(new HashSet<Integer>());
