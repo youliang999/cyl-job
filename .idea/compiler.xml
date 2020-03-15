@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cyl-job-core" />
         <module name="cyl-job-admin" />
         <module name="cyl-job-api" />
-        <module name="cyl-job-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
